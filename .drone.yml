@@ -17,7 +17,7 @@ steps:
   - name: push
     image: plugins/docker
     settings:
-      repo: "@p2p/${{ repo.name }}"
+      repo: "@p2p/drone-test"
       registry: registry.cluster
       #username:
       #  from_secret: docker_username
