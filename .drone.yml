@@ -1,0 +1,29 @@
+kind: pipeline
+type: docker
+name: build-and-push
+
+steps:
+  - name: build
+    image: gcr.io/kaniko-project/executor:latest
+    settings:
+      repo: <seu-repositorio>/nome-da-imagem
+    commands:
+      - /kaniko/executor --context ${{ clone.payload }} --dockerfile ${{ clone.payload }}/Dockerfile --destination ${{ plugin.settings.repo }} --cache=true
+
+  - name: push
+    image: plugins/docker
+    settings:
+      repo: "@p2p/${{ repo.name }}"
+      registry: registry.cluster
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+    when:
+      event:
+        include:
+          - push
+
+trigger:
+  branch:
+    - main
