@@ -3,22 +3,23 @@ type: docker
 name: build-and-push
 
 platform:
-  arch: arm64
   os: linux
+  arch: arm64
 
 steps:
   - name: build
     image: gcr.io/kaniko-project/executor:latest
     settings:
-      repo: "@p2p/drone-test"
+      repo: "p2p/drone-test"
     commands:
       - /kaniko/executor --context ${{ clone.payload }} --dockerfile ${{ clone.payload }}/Dockerfile --destination ${{ plugin.settings.repo }} --cache=true
 
   - name: push
     image: plugins/docker
     settings:
-      repo: "@p2p/drone-test"
+      repo: "p2p/drone-test"
       registry: registry.cluster
+      insecure: true
       #username:
       #  from_secret: docker_username
       #password:
