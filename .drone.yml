@@ -6,7 +6,7 @@ steps:
   - name: build
     image: gcr.io/kaniko-project/executor:latest
     settings:
-      repo: <seu-repositorio>/nome-da-imagem
+      repo: "@p2p/drone-test"
     commands:
       - /kaniko/executor --context ${{ clone.payload }} --dockerfile ${{ clone.payload }}/Dockerfile --destination ${{ plugin.settings.repo }} --cache=true
 
@@ -15,10 +15,10 @@ steps:
     settings:
       repo: "@p2p/${{ repo.name }}"
       registry: registry.cluster
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
+      #username:
+      #  from_secret: docker_username
+      #password:
+      #  from_secret: docker_password
     when:
       event:
         include:
