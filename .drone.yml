@@ -10,9 +10,9 @@ steps:
   - name: build
     image: plugins/kaniko
     environment:
-      USERNAME:
+      username:
         from_secret: docker_username
-      PASSWORD:
+      password:
         from_secret: docker_password
     settings:
       repo: docker.io/524c/drone-test
