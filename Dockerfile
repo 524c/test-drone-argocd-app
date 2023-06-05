@@ -8,7 +8,7 @@ RUN apt-get update \
     tini:arm64 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /app && chown -R node:node /app
+RUN chown -R node:node /app
 USER node
 
 COPY package* ./
@@ -27,7 +27,6 @@ FROM distroless as prod
 WORKDIR /app
 
 RUN apt-get update && apt-get upgrade -y --no-install-recommends
-RUN chown -R node:node /app
 
 USER node
 ENV NODE_ENV=production
