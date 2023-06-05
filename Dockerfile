@@ -1,5 +1,4 @@
-FROM node:16-bullseye-slim as distroless
-FROM node:16-bullseye-slim as base
+FROM node:16-bullseye-slim as build
 
 WORKDIR /app
 ENV NODE_ENV=production
@@ -11,11 +10,11 @@ RUN apt-get update \
 RUN chown -R node:node /app
 USER node
 
-COPY package* ./
+COPY ["package.json", "package-lock.json", "./"]
 COPY tsconfig.json ./
 COPY svelte.config.js ./
 COPY vite.config.ts ./
-COPY eslint.cjs ./
+COPY .eslint.cjs ./
 COPY .eslintignore ./
 RUN pnpm install
 
@@ -23,7 +22,7 @@ COPY ./src ./src
 RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
 # install only production packages
-FROM distroless as prod
+FROM node:16-bullseye-slim as prod
 WORKDIR /app
 
 RUN apt-get update && apt-get upgrade -y --no-install-recommends
