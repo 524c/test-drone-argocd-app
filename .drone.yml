@@ -10,8 +10,8 @@ steps:
   - name: build
     image: gcr.io/kaniko-project/executor:v1.9.0-debug
     settings:
-      repo: "p2p/drone-test"
-      username: rogerlucas
+      repo: "docker.io/524c/kaniko-test"
+      username: "rogerlucas"
       password: "jGjRNc(Bax2pLTem"
     commands:
       - /kaniko/executor --verbosity debug -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/524c/kaniko-test:latest
