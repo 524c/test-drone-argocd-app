@@ -12,7 +12,7 @@ steps:
     settings:
       repo: "p2p/drone-test"
     commands:
-      - /kaniko/executor --insecure --skip-tls-verify --context $clone_payload --dockerfile $clone_payload/Dockerfile --destination $plugin_settings_repo --cache=true
+      - /kaniko/executor --context ${{ clone.payload }} --dockerfile ${{ clone.payload }}/Dockerfile --destination ${{ plugin.settings.repo }} --cache=true
 
   - name: push
     image: plugins/docker
