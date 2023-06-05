@@ -16,7 +16,7 @@ COPY svelte.config.js ./
 COPY vite.config.ts ./
 COPY .eslintrc.cjs ./
 COPY .eslintignore ./
-RUN pnpm install
+RUN npm ci --omit=dev && npm cache clean --force
 
 COPY ["src/", "./src/"]
 RUN npm run build && npm prune --omit=dev && npm cache clean --force
