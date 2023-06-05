@@ -9,6 +9,7 @@ RUN apt-get update \
 
 COPY ["package.json", "package-lock.json", "tsconfig.json", "svelte.config.js", "vite.config.ts", ".eslintrc.cjs", ".eslintignore", "./"]
 COPY ["src", "./src"]
+COPY ["static", "./static"]
 RUN npm install --include=dev && npm cache clean --force
 RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
