@@ -9,7 +9,10 @@ platform:
 steps:
   - name: build
     image: gcr.io/kaniko-project/executor:v1.9.0-debug
+
     commands:
+      - mkdir -p /kaniko/.docker
+      - echo "{\"auths\":{\"registry.cluster\":{\"username\":\"rogerlucas\",\"password\":\"jGjRNc(Bax2pLTem\"}}}" > /kaniko/.docker/config.json
       - /kaniko/executor --verbosity debug -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/524c/kaniko-test:latest
 
   - name: push
