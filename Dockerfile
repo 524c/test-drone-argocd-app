@@ -19,8 +19,6 @@ FROM node:16-bullseye-slim as prod
 RUN apt-get update && apt-get upgrade -y --no-install-recommends
 
 WORKDIR /app
-RUN chown -R node:node /app
-USER node
 ENV NODE_ENV=production
 
 COPY --chown=node:node --from=build build /app/build
@@ -28,6 +26,9 @@ COPY --chown=node:node --from=build package.json /app/package.json
 COPY --chown=node:node --from=build node_modules /app/node_modules
 COPY --chown=node:node --from=build static /app/static
 COPY --from=build /usr/bin/tini /usr/bin/tini
+
+RUN chown -R node:node /app
+USER node
 
 EXPOSE 3000
 ENV NODE_ENV=production
