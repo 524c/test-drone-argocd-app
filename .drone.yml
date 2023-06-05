@@ -25,7 +25,7 @@ steps:
     settings:
       repo: "p2p/drone-test"
       registry: registry.cluster:5000
-      insecure: true
+      skip_tls_verify: true
       username:
         from_secret: docker_username
       password:
