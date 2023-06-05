@@ -1,7 +1,7 @@
 FROM node:16-bullseye-slim as distroless
-#FROM gcr.io/distroless/nodejs:16 as distroless
 FROM node:16-bullseye-slim as base
 
+WORKDIR /app
 ENV NODE_ENV=production
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -9,14 +9,27 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /app && chown -R node:node /app
-WORKDIR /app
 USER node
+
+COPY package* ./
+COPY tsconfig.json ./
+COPY svelte.config.js ./
+COPY vite.config.js ./
+COPY eslint.cjs ./
+COPY .eslintignore ./
+RUN pnpm install
+
+COPY ./src ./src
+RUN npm run build && npm prune --omit=dev && npm cache clean --force
+
 
 # install only production packages
 FROM distroless as prod
+WORKDIR /app
+
 RUN apt-get update && apt-get upgrade -y --no-install-recommends
 RUN mkdir /app && chown -R node:node /app
-WORKDIR /app
+
 USER node
 ENV NODE_ENV=production
 
