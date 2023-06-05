@@ -14,7 +14,7 @@ COPY ["package.json", "package-lock.json", "./"]
 COPY tsconfig.json ./
 COPY svelte.config.js ./
 COPY vite.config.ts ./
-COPY .eslint.cjs ./
+COPY .eslintrc.cjs ./
 COPY .eslintignore ./
 RUN pnpm install
 
