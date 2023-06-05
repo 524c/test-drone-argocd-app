@@ -13,9 +13,6 @@ COPY ["static", "./static"]
 RUN npm install --include=dev && npm cache clean --force
 RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
-RUN ls -la
-RUN ls -la build
-
 # install only production packages
 FROM node:16-bullseye-slim as prod
 
