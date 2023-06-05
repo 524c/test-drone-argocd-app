@@ -8,12 +8,18 @@ platform:
 
 steps:
   - name: build
-    image: gcr.io/kaniko-project/executor:v1.9.0-debug
+    image: plugins/kaniko
 
-    commands:
-      - mkdir -p /kaniko/.docker
-      - echo "{\"auths\":{\"registry.cluster:5000\":{\"username\":\"rogerlucas\",\"password\":\"jGjRNc(Bax2pLTem\"}}}" > /kaniko/.docker/config.json
-      - /kaniko/executor --verbosity debug -f `pwd`/Dockerfile -c `pwd` --skip-tls-verify --cache=true --destination=registry.cluster:5000/524c/kaniko-test:latest
+    settings:
+      repo: docker.io/524c/drone-test
+      #tags: latest
+      tags: ${DRONE_COMMIT_SHA}
+      cache: true
+      skip_tls_verify: true
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
 
   - name: push
     image: plugins/docker
@@ -29,10 +35,6 @@ steps:
       #  from_secret: docker_username
       #password:
       #  from_secret: docker_password
-    when:
-      event:
-        include:
-          - push
 
 trigger:
   branch:
