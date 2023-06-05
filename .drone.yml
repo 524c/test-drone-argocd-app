@@ -9,9 +9,12 @@ platform:
 steps:
   - name: build
     image: plugins/kaniko
+    environment:
+      USERNAME:
+        from_secret: docker_username
+      PASSWORD:
+        from_secret: docker_password
     settings:
-      username: "rogerlucas"
-      password: "jGjRNc(Bax2pLTem"
       repo: docker.io/524c/drone-test
       tags: latest
 
