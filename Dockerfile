@@ -22,13 +22,12 @@ RUN pnpm install
 COPY ./src ./src
 RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
-
 # install only production packages
 FROM distroless as prod
 WORKDIR /app
 
 RUN apt-get update && apt-get upgrade -y --no-install-recommends
-RUN mkdir /app && chown -R node:node /app
+RUN chown -R node:node /app
 
 USER node
 ENV NODE_ENV=production
