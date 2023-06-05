@@ -7,12 +7,13 @@ platform:
   arch: arm64
 
 steps:
-  - name: build
-    image: gcr.io/kaniko-project/executor:latest
+  - name: kaniko
+    image: plugins/kaniko
     settings:
+      username: kevinbacon
+      password: pa55word
       repo: "p2p/drone-test"
-    commands:
-      - /busybox/sh -c '/kaniko/executor --context $clone_payload --dockerfile $clone_payload/Dockerfile --destination $plugin_settings_repo --cache=true'
+      tags: latest
 
   - name: push
     image: plugins/docker
