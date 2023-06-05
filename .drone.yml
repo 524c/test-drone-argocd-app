@@ -6,23 +6,25 @@ platform:
   os: linux
   arch: arm64
 
+# use custom dns server
+
 steps:
   - name: kaniko
     image: plugins/kaniko
     settings:
-      username: kevinbacon
-      password: pa55word
-      repo: "registry.cluster/p2p/drone-test"
-      tags: latest
-      dns: 192.168.1.3
+      #username: kevinbacon
+      #password: pa55word
+      repo: "registry.cluster:5000/p2p/drone-test"
+      tags:
+        - ${DRONE_COMMIT_SHA:0:7}
+        - ${DRONE_COMMIT_BRANCH}
 
   - name: push
     image: plugins/docker
     settings:
       repo: "p2p/drone-test"
-      registry: registry.cluster
+      registry: registry.cluster:5000
       insecure: true
-      dns: 192.168.1.3
       #username:
       #  from_secret: docker_username
       #password:
