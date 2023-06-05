@@ -10,10 +10,8 @@ RUN apt-get update \
 RUN chown -R node:node /app
 USER node
 
-COPY ["package.json", "package-lock.json", "tsconfig.json", "svelte.config.js", "vite.config.ts", ".eslintrc.cjs", ".eslintignore", "./"]
+COPY ["package.json", "package-lock.json", "tsconfig.json", "svelte.config.js", "vite.config.ts", ".eslintrc.cjs", ".eslintignore", "src/", "./"]
 RUN npm ci --omit=dev && npm cache clean --force
-
-COPY ["src/", "./src/"]
 RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
 # install only production packages
