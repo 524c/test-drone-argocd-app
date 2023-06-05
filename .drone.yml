@@ -11,7 +11,7 @@ steps:
     image: plugins/kaniko
 
     settings:
-      repo: docker.io/524c/drone-test
+      repo: registry.cluster:5000/524c/drone-test
       #tags: latest
       tags: ${DRONE_COMMIT_SHA}
       cache: true
