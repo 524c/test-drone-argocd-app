@@ -18,7 +18,7 @@ COPY .eslint.cjs ./
 COPY .eslintignore ./
 RUN pnpm install
 
-COPY ./src ./src
+COPY ["src/", "./src/"]
 RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
 # install only production packages
@@ -34,7 +34,7 @@ COPY --chown=node:node build /app/build
 COPY --chown=node:node package.json /app/package.json
 COPY --chown=node:node node_modules /app/node_modules
 COPY --chown=node:node static /app/static
-COPY --from=base /usr/bin/tini /usr/bin/tini
+COPY --from=build /usr/bin/tini /usr/bin/tini
 
 #RUN ls -lahtr /app
 
