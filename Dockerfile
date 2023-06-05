@@ -23,6 +23,10 @@ RUN chown -R node:node /app
 USER node
 ENV NODE_ENV=production
 
+RUN pwd
+RUN ls -la /app
+RUN ls -la /app/build
+
 COPY --chown=node:node build /app/build
 COPY --chown=node:node package.json /app/package.json
 COPY --chown=node:node node_modules /app/node_modules
