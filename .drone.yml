@@ -12,7 +12,7 @@ steps:
     settings:
       repo: "p2p/drone-test"
     commands:
-      - /kaniko/executor --context $clone_payload --dockerfile $clone_payload/Dockerfile --destination $plugin_settings_repo --cache=true
+      - /busybox/sh -c '/kaniko/executor --context $clone_payload --dockerfile $clone_payload/Dockerfile --destination $plugin_settings_repo --cache=true'
 
   - name: push
     image: plugins/docker
