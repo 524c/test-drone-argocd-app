@@ -21,11 +21,12 @@ RUN apt-get update && apt-get upgrade -y --no-install-recommends
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY --chown=node:node --from=build build /app/build
-COPY --chown=node:node --from=build package.json /app/package.json
-COPY --chown=node:node --from=build node_modules /app/node_modules
-COPY --chown=node:node --from=build static /app/static
 COPY --from=build /usr/bin/tini /usr/bin/tini
+
+COPY --chown=node:node --from=build /app/build /app/build
+COPY --chown=node:node --from=build /app/package.json /app/
+COPY --chown=node:node --from=build /app/node_modules /app/node_modules
+COPY --chown=node:node --from=build /app/static /app/static
 
 RUN chown -R node:node /app
 USER node
