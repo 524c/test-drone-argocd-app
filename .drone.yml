@@ -18,6 +18,7 @@ steps:
       tags:
         - ${DRONE_COMMIT_SHA:0:7}
         - ${DRONE_COMMIT_BRANCH}
+      insecure: true
 
   - name: push
     image: plugins/docker
