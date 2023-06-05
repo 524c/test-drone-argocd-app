@@ -7,24 +7,12 @@ platform:
   arch: arm64
 
 steps:
-  - name: build
+  - name: build and push
     image: plugins/kaniko
     settings:
       repo: registry.cluster:5000/p2p/drone-test
       tags: ${DRONE_COMMIT_SHA}
       cache: true
-      skip_tls_verify: true
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-
-  - name: push
-    image: plugins/docker
-    settings:
-      repo: "p2p/drone-test"
-      tags: ${DRONE_COMMIT_SHA}
-      registry: registry.cluster:5000
       skip_tls_verify: true
       username:
         from_secret: docker_username
