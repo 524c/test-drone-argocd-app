@@ -13,6 +13,10 @@ COPY ["static", "./static"]
 RUN npm install --include=dev && npm cache clean --force
 RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
+RUN pwd
+RUN ls -la
+RUN ls -la build
+
 # install only production packages
 FROM node:16-bullseye-slim as prod
 
@@ -22,7 +26,6 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 COPY --from=build /usr/bin/tini /usr/bin/tini
-
 COPY --chown=node:node --from=build /app/build /app/build
 COPY --chown=node:node --from=build /app/package.json /app/
 COPY --chown=node:node --from=build /app/node_modules /app/node_modules
