@@ -10,7 +10,7 @@ steps:
   - name: build
     image: plugins/kaniko
     settings:
-      repo: registry.cluster:5000/524c/drone-test
+      repo: registry.cluster:5000/p2p/drone-test
       tags: ${DRONE_COMMIT_SHA}
       cache: true
       skip_tls_verify: true
@@ -23,6 +23,7 @@ steps:
     image: plugins/docker
     settings:
       repo: "p2p/drone-test"
+      tags: ${DRONE_COMMIT_SHA}
       registry: registry.cluster:5000
       skip_tls_verify: true
       username:
