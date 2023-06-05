@@ -6,25 +6,19 @@ platform:
   os: linux
   arch: arm64
 
-# use custom dns server
-
 steps:
-  - name: kaniko
-    image: plugins/kaniko
+  - name: build
+    image: gcr.io/kaniko-project/executor:latest
     settings:
-      username: roger
-      password: pa55word
-      repo: "registry.cluster:5000/p2p/drone-test"
-      tags:
-        - ${DRONE_COMMIT_SHA:0:7}
-        - ${DRONE_COMMIT_BRANCH}
-      insecure: true
+      repo: "p2p/drone-test"
+    commands:
+      - /kaniko/executor --insecure --skip-tls-verify --context $clone_payload --dockerfile $clone_payload/Dockerfile --destination $plugin_settings_repo --cache=true
 
   - name: push
     image: plugins/docker
     settings:
       repo: "p2p/drone-test"
-      registry: registry.cluster:5000
+      registry: registry.cluster
       insecure: true
       #username:
       #  from_secret: docker_username
