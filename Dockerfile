@@ -10,12 +10,7 @@ RUN apt-get update \
 RUN chown -R node:node /app
 USER node
 
-COPY ["package.json", "package-lock.json", "./"]
-COPY tsconfig.json ./
-COPY svelte.config.js ./
-COPY vite.config.ts ./
-COPY .eslintrc.cjs ./
-COPY .eslintignore ./
+COPY ["package.json", "package-lock.json", "tsconfig.json", "svelte.config.js", "vite.config.ts", ".eslintrc.cjs", ".eslintignore", "./"]
 RUN npm ci --omit=dev && npm cache clean --force
 
 COPY ["src/", "./src/"]
