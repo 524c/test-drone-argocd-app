@@ -12,7 +12,7 @@ steps:
     settings:
       username: rogerlucas
       password: jGjRNc(Bax2pLTem
-      repo: 524c/drone-test
+      repo: docker.io/524c/drone-test
       tags: latest
 
   - name: push
