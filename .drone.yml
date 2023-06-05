@@ -9,14 +9,14 @@ platform:
 steps:
   - name: build
     image: plugins/kaniko
-    environment:
+
+    settings:
+      repo: docker.io/524c/drone-test
+      tags: latest
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
-    settings:
-      repo: docker.io/524c/drone-test
-      tags: latest
 
   - name: push
     image: plugins/docker
@@ -24,6 +24,10 @@ steps:
       repo: "p2p/drone-test"
       registry: registry.cluster
       insecure: true
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
       #username:
       #  from_secret: docker_username
       #password:
