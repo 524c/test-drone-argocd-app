@@ -9,7 +9,6 @@ platform:
 steps:
   - name: build
     image: plugins/kaniko
-
     settings:
       repo: registry.cluster:5000/524c/drone-test
       tags: ${DRONE_COMMIT_SHA}
