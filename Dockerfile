@@ -14,7 +14,7 @@ USER node
 COPY package* ./
 COPY tsconfig.json ./
 COPY svelte.config.js ./
-COPY vite.config.js ./
+COPY vite.config.ts ./
 COPY eslint.cjs ./
 COPY .eslintignore ./
 RUN pnpm install
