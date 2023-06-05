@@ -12,7 +12,7 @@ steps:
     settings:
       username: kevinbacon
       password: pa55word
-      repo: "p2p/drone-test"
+      repo: "registry.cluster/p2p/drone-test"
       tags: latest
 
   - name: push
