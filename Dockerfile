@@ -1,6 +1,6 @@
 FROM node:16-bullseye-slim as build
 
-WORKDIR /app
+WORKDIR /app/
 ENV NODE_ENV=production
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -13,7 +13,6 @@ COPY ["static", "./static"]
 RUN npm install --include=dev && npm cache clean --force
 RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
-RUN pwd
 RUN ls -la
 RUN ls -la build
 
@@ -22,14 +21,11 @@ FROM node:16-bullseye-slim as prod
 
 RUN apt-get update && apt-get upgrade -y --no-install-recommends
 
-WORKDIR /app
+WORKDIR /app/
 ENV NODE_ENV=production
 
 COPY --from=build /usr/bin/tini /usr/bin/tini
-COPY --chown=node:node --from=build /app/build /app/build
-COPY --chown=node:node --from=build /app/package.json /app/
-COPY --chown=node:node --from=build /app/node_modules /app/node_modules
-COPY --chown=node:node --from=build /app/static /app/static
+COPY --chown=node:node --from=build /app/ /.
 
 RUN chown -R node:node /app
 USER node
