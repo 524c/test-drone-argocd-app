@@ -14,6 +14,8 @@ steps:
       password: pa55word
       repo: "registry.cluster/p2p/drone-test"
       tags: latest
+    extra_hosts:
+      - "registry.cluster:192.168.1.3"
 
   - name: push
     image: plugins/docker
