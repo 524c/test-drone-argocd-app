@@ -10,8 +10,8 @@ steps:
   - name: build
     image: plugins/kaniko
     settings:
-      username: rogerlucas
-      password: jGjRNc(Bax2pLTem
+      username: "rogerlucas"
+      password: "jGjRNc(Bax2pLTem"
       repo: docker.io/524c/drone-test
       tags: latest
 
