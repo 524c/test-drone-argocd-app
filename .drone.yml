@@ -12,8 +12,8 @@ steps:
   - name: kaniko
     image: plugins/kaniko
     settings:
-      #username: kevinbacon
-      #password: pa55word
+      username: roger
+      password: pa55word
       repo: "registry.cluster:5000/p2p/drone-test"
       tags:
         - ${DRONE_COMMIT_SHA:0:7}
