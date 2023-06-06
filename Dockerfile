@@ -22,8 +22,12 @@ WORKDIR /app/
 ENV NODE_ENV=production
 
 COPY --from=build /usr/bin/tini /usr/bin/tini
-COPY --chown=node:node --from=build /app/ /app/
+COPY --chown=node:node --from=build /app/build /app/build
+COPY --chown=node:node --from=build /app/package.json /app/
+COPY --chown=node:node --from=build /app/node_modules /app/node_modules
+COPY --chown=node:node --from=build /app/static /app/static
 
+# Because I don't trust Docker's copy with chown :)
 RUN chown -R node:node /app
 USER node
 
