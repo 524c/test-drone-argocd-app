@@ -22,7 +22,7 @@ WORKDIR /app/
 ENV NODE_ENV=production
 
 COPY --from=build /usr/bin/tini /usr/bin/tini
-COPY --chown=node:node --from=build /app/ /.
+COPY --chown=node:node --from=build /app/ /app/
 
 RUN chown -R node:node /app
 USER node
