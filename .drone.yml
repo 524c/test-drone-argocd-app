@@ -10,8 +10,10 @@ steps:
   - name: build and push
     image: plugins/kaniko
     settings:
-      repo: registry.local:5000/524c/drone-test
-      tags: ${DRONE_COMMIT_SHA}
+      repo: registry.local:5000/p2p/drone-test
+      tags:
+        - ${DRONE_COMMIT_SHA}
+        - latest
       cache: true
       skip_tls_verify: true
       username:
